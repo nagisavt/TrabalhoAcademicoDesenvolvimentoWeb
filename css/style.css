@@ -1,0 +1,250 @@
+/* ============================================================
+   Pokémon Battle — Tela de Versus
+   Variáveis globais de tema
+   ============================================================ */
+:root {
+  /* Sableye — roxo/fantasma com gema vermelha */
+  --sableye-dark: #2a1840;
+  --sableye-mid: #5b3b8c;
+  --sableye-accent: #e23b5a;
+
+  /* Salamence — azul dragão com asas carmim */
+  --salamence-dark: #0e2a3d;
+  --salamence-mid: #2e7fb8;
+  --salamence-accent: #9e2b32;
+
+  --ink: #f5f3ff;
+  --vs-gold: #ffd34e;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  background: #060309;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Barra superior / inferior
+   ============================================================ */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 30;
+  text-align: center;
+  padding: clamp(0.6rem, 2vh, 1.4rem) 1rem;
+  pointer-events: none;
+}
+
+.topbar__title {
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(0, 0, 0, 0.9), 0 2px 0 #000;
+}
+
+.topbar__title span { color: var(--vs-gold); }
+
+.topbar__subtitle {
+  margin-top: 0.2rem;
+  font-size: clamp(0.7rem, 1.6vw, 1rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.bottombar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 30;
+  text-align: center;
+  padding: 0.7rem 1rem;
+  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  letter-spacing: 0.08em;
+  color: rgba(245, 243, 255, 0.7);
+  text-shadow: 0 1px 4px #000;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Arena de versus — divisão diagonal
+   ============================================================ */
+.versus {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.side {
+  position: relative;
+  flex: 1;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: inherit;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: flex 0.5s var(--ease);
+}
+
+/* Corte diagonal: cada lado avança sobre o outro */
+.side--sableye {
+  background: radial-gradient(circle at 40% 35%, var(--sableye-mid), var(--sableye-dark) 70%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12vw) 100%, 0 100%);
+  margin-right: -6vw;
+}
+
+.side--salamence {
+  background: radial-gradient(circle at 60% 35%, var(--salamence-mid), var(--salamence-dark) 70%);
+  clip-path: polygon(12vw 0, 100% 0, 100% 100%, 0 100%);
+  margin-left: -6vw;
+}
+
+/* Lado em destaque cresce e clareia */
+.versus:hover .side { flex: 0.85; }
+.versus .side:hover { flex: 1.3; }
+.side:hover { filter: brightness(1.15) saturate(1.2); z-index: 10; }
+.side:focus-visible { outline: 3px dashed var(--vs-gold); outline-offset: -10px; }
+
+/* Brilho radial que aparece no hover */
+.side__glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+.side--sableye .side__glow { box-shadow: inset 0 0 200px 40px var(--sableye-accent); }
+.side--salamence .side__glow { box-shadow: inset 0 0 200px 40px var(--salamence-accent); }
+.side:hover .side__glow { opacity: 0.55; }
+
+/* ============================================================
+   Sprites — troca normal -> mega no hover
+   ============================================================ */
+.side__figure {
+  position: relative;
+  width: clamp(180px, 32vw, 420px);
+  height: clamp(180px, 32vw, 420px);
+  display: grid;
+  place-items: center;
+}
+
+.side__sprite {
+  grid-area: 1 / 1;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.6));
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+}
+
+.side__sprite--mega { opacity: 0; transform: scale(0.85); }
+
+.side:hover .side__sprite--base { opacity: 0; transform: scale(1.05); }
+.side:hover .side__sprite--mega { opacity: 1; transform: scale(1.08); }
+
+/* ============================================================
+   Nome e tipo
+   ============================================================ */
+.side__name {
+  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 0 #000, 0 0 18px rgba(0, 0, 0, 0.8);
+}
+
+.side--sableye .side__name { color: #d6c2ff; }
+.side--salamence .side__name { color: #bfe6ff; }
+
+.side__type {
+  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   Selo VS central
+   ============================================================ */
+.vs-badge {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  z-index: 20;
+  width: clamp(80px, 14vw, 150px);
+  height: clamp(80px, 14vw, 150px);
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, #fff 0%, var(--vs-gold) 55%, #b8860b 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px #060309, 0 0 40px 8px rgba(255, 211, 78, 0.5);
+  pointer-events: none;
+  animation: vs-pulse 1.8s ease-in-out infinite;
+}
+
+.vs-badge__text {
+  font-size: clamp(1.8rem, 6vw, 3.4rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #2a1500;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.6);
+}
+
+@keyframes vs-pulse {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+  50%      { transform: translate(-50%, -50%) rotate(-8deg) scale(1.08); }
+}
+
+/* Animação ao confirmar a escolha (disparada via JS) */
+.side.is-chosen { animation: chosen-flash 0.6s var(--ease) forwards; }
+.versus.is-leaving .side:not(.is-chosen) { opacity: 0.15; filter: grayscale(1); }
+
+@keyframes chosen-flash {
+  0%   { filter: brightness(1.15); }
+  40%  { filter: brightness(2.4) saturate(1.5); }
+  100% { filter: brightness(1.3); transform: scale(1.02); }
+}
+
+/* ============================================================
+   Responsivo — empilha na vertical no mobile
+   ============================================================ */
+@media (max-width: 720px) {
+  body { overflow-y: auto; }
+  .versus { flex-direction: column; height: auto; min-height: 100vh; }
+
+  .side {
+    width: 100%;
+    min-height: 46vh;
+    margin: 0 !important;
+  }
+
+  /* corte diagonal na horizontal */
+  .side--sableye {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8vh), 0 100%);
+    margin-bottom: -4vh !important;
+  }
+  .side--salamence {
+    clip-path: polygon(0 8vh, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .versus:hover .side,
+  .versus .side:hover { flex: 1; }
+
+  .vs-badge { animation: none; }
+}
+
+/* Acessibilidade: respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

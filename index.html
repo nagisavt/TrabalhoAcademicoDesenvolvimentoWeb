@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Battle — Escolha seu lado</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="versus-page">
+  <header class="topbar">
+    <h1 class="topbar__title">Pokémon <span>Battle</span></h1>
+    <p class="topbar__subtitle">Escolha seu lado</p>
+  </header>
+
+  <main class="versus" aria-label="Seleção de personagem">
+    <!-- Lado esquerdo: Sableye -->
+    <button class="side side--sableye" type="button" data-target="sableye.html" aria-label="Escolher Sableye">
+      <span class="side__glow" aria-hidden="true"></span>
+      <figure class="side__figure">
+        <img class="side__sprite side__sprite--base" src="Sableye/302.png" alt="Sableye, Pokémon do tipo Fantasma/Sombrio">
+      </figure>
+      <span class="side__name">Sableye</span>
+      <span class="side__type">Fantasma · Sombrio</span>
+    </button>
+
+    <!-- Selo central -->
+    <div class="vs-badge" aria-hidden="true">
+      <span class="vs-badge__text">VS</span>
+    </div>
+
+    <!-- Lado direito: Salamence -->
+    <button class="side side--salamence" type="button" data-target="salamence.html" aria-label="Escolher Salamence">
+      <span class="side__glow" aria-hidden="true"></span>
+      <figure class="side__figure">
+        <img class="side__sprite side__sprite--base" src="Salamence/373.png" alt="Salamence, Pokémon do tipo Dragão/Voador">
+      </figure>
+      <span class="side__name">Salamence</span>
+      <span class="side__type">Dragão · Voador</span>
+    </button>
+  </main>
+
+  <footer class="bottombar">
+    <p>Passe o mouse (ou toque) para revelar a Mega Evolução · Clique para entrar</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

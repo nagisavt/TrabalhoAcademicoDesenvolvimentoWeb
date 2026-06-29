@@ -1,0 +1,112 @@
+/* ============================================================
+   Pokémon Battle — Tela de personagem (placeholder)
+   ============================================================ */
+:root {
+  --ink: #f5f3ff;
+  --vs-gold: #ffd34e;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+.character-page--sableye {
+  background: radial-gradient(circle at 50% 30%, #5b3b8c, #2a1840 70%);
+}
+.character-page--salamence {
+  background: radial-gradient(circle at 50% 30%, #2e7fb8, #0e2a3d 70%);
+}
+
+/* Cabeçalho */
+.char-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem clamp(1rem, 4vw, 2.5rem);
+}
+
+.back-link {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.back-link:hover { background: rgba(255, 255, 255, 0.15); border-color: var(--vs-gold); }
+
+.char-header__tag {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 900;
+  opacity: 0.4;
+}
+
+/* Conteúdo principal */
+.char-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem 3rem;
+  text-align: center;
+}
+
+.char-hero img {
+  width: clamp(220px, 50vw, 460px);
+  filter: drop-shadow(0 22px 40px rgba(0, 0, 0, 0.55));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+.char-name {
+  font-size: clamp(2rem, 8vw, 4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-shadow: 0 3px 0 #000, 0 0 24px rgba(0, 0, 0, 0.7);
+}
+
+.char-types {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin: 0.8rem 0;
+}
+
+.badge {
+  padding: 0.4rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+}
+.badge--ghost  { background: #6a4f9e; }
+.badge--dark   { background: #3b3347; }
+.badge--dragon { background: #5a52d6; }
+.badge--flying { background: #8a9ad6; }
+
+.char-note {
+  font-size: 0.95rem;
+  opacity: 0.75;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
