@@ -9,18 +9,19 @@
 <body class="versus-page">
   <header class="topbar">
     <h1 class="topbar__title">Pokémon <span>Battle</span></h1>
-    <p class="topbar__subtitle">Escolha seu lado</p>
+    <p class="topbar__subtitle">Monte os times e descubra o lado vencedor</p>
   </header>
 
-  <main class="versus" aria-label="Seleção de personagem">
+  <main class="versus" aria-label="Seleção de lado">
     <!-- Lado esquerdo: Sableye -->
-    <button class="side side--sableye" type="button" data-target="sableye.html" aria-label="Escolher Sableye">
+    <button class="side side--sableye" type="button" data-target="builder.html?side=sableye" data-side="sableye" aria-label="Montar time do Sableye">
       <span class="side__glow" aria-hidden="true"></span>
       <figure class="side__figure">
-        <img class="side__sprite side__sprite--base" src="Sableye/302.png" alt="Sableye, Pokémon do tipo Fantasma/Sombrio">
+        <img class="side__sprite side__sprite--base" src="Sableye/302.png" alt="Sableye, Pokémon do tipo Sombrio/Fantasma">
       </figure>
       <span class="side__name">Sableye</span>
-      <span class="side__type">Fantasma · Sombrio</span>
+      <span class="side__type">Sombrio · Fantasma</span>
+      <span class="side__summary" data-summary="sableye">Time vazio — clique para montar</span>
     </button>
 
     <!-- Selo central -->
@@ -29,20 +30,42 @@
     </div>
 
     <!-- Lado direito: Salamence -->
-    <button class="side side--salamence" type="button" data-target="salamence.html" aria-label="Escolher Salamence">
+    <button class="side side--salamence" type="button" data-target="builder.html?side=salamence" data-side="salamence" aria-label="Montar time do Salamence">
       <span class="side__glow" aria-hidden="true"></span>
       <figure class="side__figure">
         <img class="side__sprite side__sprite--base" src="Salamence/373.png" alt="Salamence, Pokémon do tipo Dragão/Voador">
       </figure>
       <span class="side__name">Salamence</span>
       <span class="side__type">Dragão · Voador</span>
+      <span class="side__summary" data-summary="salamence">Time vazio — clique para montar</span>
     </button>
   </main>
 
   <footer class="bottombar">
-    <p>Passe o mouse (ou toque) para revelar a Mega Evolução · Clique para entrar</p>
+    <button id="compare-btn" class="compare-btn" type="button" disabled>Comparar times ⚔️</button>
+    <button id="reset-btn" class="reset-btn" type="button" hidden>Limpar tudo</button>
+    <p class="bottombar__hint" id="compare-hint">Monte e confirme os dois times para liberar a batalha</p>
   </footer>
 
+  <!-- Overlay de resultado (placar + vencedor + justificativa) -->
+  <section class="result" id="result" hidden aria-labelledby="result-title" aria-modal="true" role="dialog">
+    <div class="result__card">
+      <button class="result__close" id="result-close" type="button" aria-label="Fechar">&times;</button>
+      <h2 class="result__title" id="result-title">Resultado da batalha</h2>
+      <p class="result__winner" id="result-winner"></p>
+      <div class="result__board" id="result-board"></div>
+      <p class="result__why" id="result-why"></p>
+    </div>
+  </section>
+
+  <!-- Dados e lógica (ordem importa; sem ES modules p/ rodar via file://) -->
+  <script src="js/data/typechart.js"></script>
+  <script src="js/data/pokedex.js"></script>
+  <script src="js/lib/model.js"></script>
+  <script src="js/lib/stats.js"></script>
+  <script src="js/lib/types.js"></script>
+  <script src="js/lib/storage.js"></script>
+  <script src="js/lib/compare.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

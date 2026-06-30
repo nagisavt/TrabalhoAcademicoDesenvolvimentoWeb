@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montar time — Pokémon Battle</title>
+  <link rel="stylesheet" href="css/builder.css">
+</head>
+<body class="builder-page" data-side="">
+  <header class="bd-header">
+    <a class="bd-back" href="index.html">&larr; Versus</a>
+    <h1 class="bd-title">Montar time — <span id="bd-side-name">…</span></h1>
+    <button id="bd-confirm" class="bd-confirm" type="button">Confirmar time ✓</button>
+  </header>
+
+  <main class="bd-main">
+    <!-- Painel de detalhe do líder (slot 0) -->
+    <section class="bd-leader" aria-labelledby="bd-leader-h">
+      <h2 id="bd-leader-h" class="sr-only">Detalhe do líder</h2>
+
+      <figure class="bd-hero">
+        <img id="bd-hero-img" src="" alt="">
+        <figcaption id="bd-hero-name" class="bd-hero__name"></figcaption>
+      </figure>
+
+      <div class="bd-leader__panel">
+        <div class="bd-types" id="bd-types" aria-label="Tipos"></div>
+
+        <div class="bd-controls">
+          <button id="bd-mega" class="bd-mega" type="button" aria-pressed="false">Mega Evolução</button>
+          <label class="bd-level">
+            Level
+            <input type="number" id="bd-level" min="1" max="100" step="1" value="50" inputmode="numeric">
+          </label>
+        </div>
+        <p class="bd-error" id="bd-level-error" role="alert" hidden></p>
+
+        <div class="bd-stats" id="bd-stats" aria-label="Status calculados"></div>
+
+        <div class="bd-weak">
+          <h3>Fraquezas</h3>
+          <div id="bd-weak-list" class="bd-chips"></div>
+          <h3>Resistências / Imunidades</h3>
+          <div id="bd-resist-list" class="bd-chips bd-chips--mini"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Time: 6 slots -->
+    <section class="bd-team" aria-labelledby="bd-team-h">
+      <h2 id="bd-team-h">Seu time</h2>
+      <ol class="bd-slots" id="bd-slots"></ol>
+      <div class="bd-team-meta" id="bd-team-meta" aria-live="polite"></div>
+    </section>
+
+    <!-- Lista de seleção (3ª geração) com busca e filtro -->
+    <section class="bd-picker" aria-labelledby="bd-picker-h">
+      <h2 id="bd-picker-h">Adicionar Pokémon</h2>
+      <div class="bd-filters">
+        <input type="search" id="bd-search" placeholder="Buscar por nome…" aria-label="Buscar por nome">
+        <select id="bd-filter-type" aria-label="Filtrar por tipo">
+          <option value="">Todos os tipos</option>
+        </select>
+      </div>
+      <ul class="bd-list" id="bd-list"></ul>
+    </section>
+  </main>
+
+  <!-- Modal de edição de membro -->
+  <div class="bd-modal" id="bd-modal" hidden>
+    <div class="bd-modal__card" role="dialog" aria-modal="true" aria-labelledby="bd-modal-title">
+      <button class="bd-modal__close" id="bd-modal-close" type="button" aria-label="Fechar">&times;</button>
+      <h3 id="bd-modal-title">Editar membro</h3>
+      <figure class="bd-modal__hero">
+        <img id="bd-modal-img" src="" alt="">
+      </figure>
+      <div id="bd-modal-types" class="bd-types"></div>
+
+      <label class="bd-field">
+        Apelido (opcional)
+        <input type="text" id="bd-modal-nick" maxlength="16" placeholder="Sem apelido">
+      </label>
+
+      <label class="bd-field">
+        Level (1–100)
+        <input type="number" id="bd-modal-level" min="1" max="100" step="1" value="50" inputmode="numeric">
+      </label>
+
+      <label class="bd-field bd-field--check" id="bd-modal-mega-field">
+        <input type="checkbox" id="bd-modal-mega"> Mega Evolução ativa
+      </label>
+
+      <label class="bd-field">
+        Slot
+        <select id="bd-modal-slot"></select>
+      </label>
+
+      <p class="bd-error" id="bd-modal-error" role="alert" hidden></p>
+
+      <div id="bd-modal-stats" class="bd-stats bd-stats--mini"></div>
+
+      <div class="bd-modal__actions">
+        <button id="bd-modal-remove" class="bd-btn bd-btn--danger" type="button">Remover do time</button>
+        <button id="bd-modal-save" class="bd-btn bd-btn--primary" type="button">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dados e lógica (ordem importa; sem ES modules p/ rodar via file://) -->
+  <script src="js/data/typechart.js"></script>
+  <script src="js/data/pokedex.js"></script>
+  <script src="js/lib/model.js"></script>
+  <script src="js/lib/stats.js"></script>
+  <script src="js/lib/types.js"></script>
+  <script src="js/lib/storage.js"></script>
+  <script src="js/lib/compare.js"></script>
+  <script src="js/builder.js"></script>
+</body>
+</html>
